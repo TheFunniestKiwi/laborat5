@@ -57,6 +57,8 @@ class MemoGameViewModel: ObservableObject {
     @Published private var  model = MemoGameViewModel.createMemoGame(theme: MemoGameViewModel.theme)
     
     
+    
+    
     var cards: Array<MemoGameModel<String>.Card>{
         return model.cards
     }
@@ -73,6 +75,9 @@ class MemoGameViewModel: ObservableObject {
             model.choose(card)
         }
     }
+    
+
+
 
     
     func changeTheme(to theme: Int) {
