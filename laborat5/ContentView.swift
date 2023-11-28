@@ -41,6 +41,7 @@ struct ContentView: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0){
             ForEach(viewModel.cards){card in
                 CardView(card, viewModel)
+                    .opacity(card.isMatched ? 0 : 1)
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
                     .onTapGesture {

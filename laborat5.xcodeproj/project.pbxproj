@@ -18,6 +18,7 @@
 		3F32073E2B03905900143375 /* MemoGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F32073D2B03905900143375 /* MemoGameViewModel.swift */; };
 		3F3207402B0390DE00143375 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F32073F2B0390DE00143375 /* ButtonView.swift */; };
 		3F3207422B039A2000143375 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3207412B039A2000143375 /* CardView.swift */; };
+		3FF9CE182B16093C00921A7E /* CirclePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CE172B16093C00921A7E /* CirclePart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		3F32073D2B03905900143375 /* MemoGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoGameViewModel.swift; sourceTree = "<group>"; };
 		3F32073F2B0390DE00143375 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		3F3207412B039A2000143375 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3FF9CE172B16093C00921A7E /* CirclePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				3F32073D2B03905900143375 /* MemoGameViewModel.swift */,
 				3F32073F2B0390DE00143375 /* ButtonView.swift */,
 				3F3207412B039A2000143375 /* CardView.swift */,
+				3FF9CE172B16093C00921A7E /* CirclePart.swift */,
 			);
 			path = laborat5;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			files = (
 				3F3207142B038F9E00143375 /* ContentView.swift in Sources */,
 				3F32073C2B03901F00143375 /* MemoGameModel.swift in Sources */,
+				3FF9CE182B16093C00921A7E /* CirclePart.swift in Sources */,
 				3F3207402B0390DE00143375 /* ButtonView.swift in Sources */,
 				3F32073E2B03905900143375 /* MemoGameViewModel.swift in Sources */,
 				3F3207422B039A2000143375 /* CardView.swift in Sources */,

@@ -58,36 +58,27 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
     mutating func choose(_ card: Card) {
         let chosenIndex = index(of: card)
         
-        // Check if the chosen card is face up or matched
+
         guard !cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched else {
             return
         }
         
 
         if let potentialMatchIndex = indexOfOneAndOnlyFaceUpCard {
-            // Check if the symbols match
+     
             if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                 cards[chosenIndex].isMatched = true
                 cards[potentialMatchIndex].isMatched = true
                 print("Matched")
             }
 
-            // Either way, the chosen card is now face up
             print("Still face up")
             cards[chosenIndex].isFaceUp = true
     
-            indexOfOneAndOnlyFaceUpCard = nil
             
             
         } else {
             print("We else")
-            // No card or more than one card is face up, so flip them all face down
-            print("")
-            for index in cards.indices {
-                if !cards[index].isMatched {
-                    cards[index].isFaceUp = false
-                }
-            }
             indexOfOneAndOnlyFaceUpCard = chosenIndex
         }
     }
