@@ -10,6 +10,7 @@ import Foundation
 struct MemoGameModel<CardContent> where CardContent : Equatable {
     private (set) var cards : Array<Card>
     private (set) var score = 0
+    private (set) var lastScore = 0
     
     init(numberPairsOfCard: Int, cardContentFactory: (Int)->CardContent){
         cards =  []
@@ -67,13 +68,16 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
                 cards[chosenIndex].isMatched = true
                 cards[potentialMatchIndex].isMatched = true
                 score += 4
+                lastScore = 4
                 print("Matched")
             }else{
                 if cards[chosenIndex].hasBeenSeen {
                     score -= 1
+                    lastScore = -1
                 }
                 if cards[potentialMatchIndex].hasBeenSeen {
                     score -= 1
+                    lastScore = -1
                 }
             }
 

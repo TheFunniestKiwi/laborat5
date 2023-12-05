@@ -55,23 +55,22 @@ struct ContentView: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0){
             ForEach(viewModel.cards){card in
                 CardView(card, viewModel)
-                    .overlay(FlyingNumber(number: 2))
+                    .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
                     .onTapGesture {
-                        let scoreBeforeChoosing = viewModel.score
                         viewModel.chooseWithAnimation(card: card)
-                        let scoreChange = viewModel.score - scoreBeforeChoosing
-                        lastScoreChange = (viewModel.score, cardId: card.id)
+                        lastScoreChange = (amount: viewModel.lastScore, cardId: card.id)
                     }
-            }
-        }.foregroundColor(viewModel.color)
+                    .onChange(of: viewModel.lastScore, {lastScoreChange = (amount: viewModel.lastScore, cardId: card.id)})
+            }.foregroundColor(viewModel.color)
+        }
     }
     
-    @State var lastScoreChange = (0, cardId:  "")
+    @State var lastScoreChange = (amount: 0, cardId:  "")
     
     private func scoreChange(causedBy card: MemoGameModel<String>.Card)->Int{
-        let _ = print(lastScoreChange.0)
+        let _ = print(lastScoreChange.amount)
         let  (amount, id) = lastScoreChange
         return card.id == id ? amount : 0
     }

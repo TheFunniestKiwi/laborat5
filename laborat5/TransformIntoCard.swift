@@ -9,31 +9,26 @@ import SwiftUI
 
 struct TransformIntoCard: ViewModifier {
     let isFaceUp: Bool
+    let color: Color
 
        func body(content: Content) -> some View {
-           ZStack {
-               let base = RoundedRectangle(cornerRadius: Constants.cornerRadius)
-               base.strokeBorder(lineWidth: Constants.lineWidth)
-                   .background(base.fill(.white))
-                   .overlay(content)
-               base.fill()
-                   .opacity(isFaceUp ? 0 : 1)
-           }
-           .rotation3DEffect(
-            .degrees(isFaceUp ? 0 : 180),
-            axis: (0,1,0)
-           )
-        
-       }
-
-       private struct Constants {
-           static let cornerRadius: CGFloat = 12
-           static let lineWidth: CGFloat = 2
+           RoundedRectangle(cornerRadius: 12)
+              .fill(isFaceUp ? Color.white : Color(color))
+              .overlay(
+                  RoundedRectangle(cornerRadius: 12)
+                      .strokeBorder(lineWidth: 3)
+                      .opacity(isFaceUp ? 1 : 0)
+              )
+              .overlay(content)
+              .rotation3DEffect(
+                  .degrees(isFaceUp ? 0 : 180),
+                  axis: (0,1,0)
+              )
        }
    }
 
    extension View {
-       func transformIntoCard(isFaceUp: Bool) -> some View {
-           modifier(TransformIntoCard(isFaceUp: isFaceUp))
+       func transformIntoCard(isFaceUp: Bool, color: Color) -> some View {
+           modifier(TransformIntoCard(isFaceUp: isFaceUp, color: color))
        }
    }

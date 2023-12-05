@@ -30,7 +30,7 @@ struct CardView : View {
                    .animation(.linear(duration: 2), value: card.isMatched)
             )
             .padding(5)
-            .transformIntoCard(isFaceUp: card.isFaceUp)
+            .transformIntoCard(isFaceUp: card.isFaceUp, color: viewModel.color)
         .onTapGesture {
             withAnimation{
                 viewModel.chooseWithAnimation(card: card)
