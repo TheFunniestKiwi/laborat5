@@ -66,6 +66,10 @@ class MemoGameViewModel: ObservableObject {
     var score: Int {
         return model.score
     }
+    
+    var lastScoreChange: Int {
+        return model.lastScoreChange
+    }
 
 
     func shuffleWithAnimation() {

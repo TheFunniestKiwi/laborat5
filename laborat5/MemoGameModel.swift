@@ -10,6 +10,7 @@ import Foundation
 struct MemoGameModel<CardContent> where CardContent : Equatable {
     private (set) var cards : Array<Card>
     private (set) var score = 0
+    private (set) var lastScoreChange = 0
     
     init(numberPairsOfCard: Int, cardContentFactory: (Int)->CardContent){
         cards =  []
@@ -21,7 +22,7 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
         }
     }
     
-    private var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfSingleRevealedAndUnmatchedCard: Int? {
             get {
                 let faceUpCardIndices = cards.indices.filter { cards[$0].isFaceUp && !cards[$0].isMatched}
                 return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
@@ -34,6 +35,7 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
                 }
             }
         }
+
     
     func index(of card: Card) -> Int {
         return cards.firstIndex(where: {$0.id == card.id})!
@@ -52,28 +54,31 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
         }
         
 
-        if let potentialMatchIndex = indexOfOneAndOnlyFaceUpCard {
-     
-            if cards[chosenIndex].content == cards[potentialMatchIndex].content 
+        if let otherRevealedCardIndex = indexOfSingleRevealedAndUnmatchedCard 
+        {
+            if cards[chosenIndex].content == cards[otherRevealedCardIndex].content 
             {
                 cards[chosenIndex].isMatched = true
-                cards[potentialMatchIndex].isMatched = true
-                score += 4
+                cards[otherRevealedCardIndex].isMatched = true
+                lastScoreChange = 4
             }
             else
             {
                 if cards[chosenIndex].hasBeenSeen {
-                    score -= 1
+                    lastScoreChange = -1
                 }
-                if cards[potentialMatchIndex].hasBeenSeen {
-                    score -= 1
+                if cards[otherRevealedCardIndex].hasBeenSeen {
+                    lastScoreChange += -1
                 }
             }
-
+            
             cards[chosenIndex].isFaceUp = true
         } else {
-            indexOfOneAndOnlyFaceUpCard = chosenIndex
+            indexOfSingleRevealedAndUnmatchedCard = chosenIndex
+            lastScoreChange = 0
         }
+        
+        score += lastScoreChange
     }
 
     
@@ -82,9 +87,12 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
     struct Card: Equatable, Identifiable{
        
         
-        var isFaceUp = false{
-            didSet {
-                if oldValue && !isFaceUp {
+        var isFaceUp = false
+        {
+            didSet 
+            {
+                if oldValue && !isFaceUp 
+                {
                     hasBeenSeen = true
                 }
             }

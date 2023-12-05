@@ -58,6 +58,11 @@ struct ContentView: View {
                     .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
+                    .onChange(of: card.isFaceUp,
+                        {
+                            lastScoreChange = (amount: viewModel.lastScoreChange, cardId: card.id)
+                        } 
+                    )
             }.foregroundColor(viewModel.color)
         }
     }
@@ -65,7 +70,6 @@ struct ContentView: View {
     @State var lastScoreChange = (amount: 0, cardId:  "")
     
     private func scoreChange(causedBy card: MemoGameModel<String>.Card)->Int{
-        let _ = print(lastScoreChange.amount)
         let  (amount, id) = lastScoreChange
         return card.id == id ? amount : 0
     }

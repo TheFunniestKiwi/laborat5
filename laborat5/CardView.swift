@@ -25,10 +25,10 @@ struct CardView : View {
                    .font(.system(size: 200))
                    .minimumScaleFactor(0.01)
                    .aspectRatio(1, contentMode: .fit)
-                   .opacity(card.isFaceUp ? 1 : 0)
                    .rotationEffect(.degrees(card.isMatched ? 360 : 0))
                    .animation(.spin(duration: 2), value: card.isMatched)
             )
+            .opacity(card.isFaceUp ? 1 : 0)
             .padding(5)
             .transformIntoCard(isFaceUp: card.isFaceUp, color: viewModel.color)
         .onTapGesture {
