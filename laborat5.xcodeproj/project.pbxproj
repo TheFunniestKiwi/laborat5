@@ -20,7 +20,6 @@
 		3F3207422B039A2000143375 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3207412B039A2000143375 /* CardView.swift */; };
 		3FF9CE182B16093C00921A7E /* CirclePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CE172B16093C00921A7E /* CirclePart.swift */; };
 		416442F02B1E44EC007F98E4 /* TransformIntoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416442EF2B1E44EC007F98E4 /* TransformIntoCard.swift */; };
-		416442F42B1E8D5C007F98E4 /* backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416442F32B1E8D5C007F98E4 /* backup.swift */; };
 		416442F62B1EBB00007F98E4 /* FlyingNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416442F52B1EBB00007F98E4 /* FlyingNumber.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +57,6 @@
 		3F3207412B039A2000143375 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3FF9CE172B16093C00921A7E /* CirclePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePart.swift; sourceTree = "<group>"; };
 		416442EF2B1E44EC007F98E4 /* TransformIntoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformIntoCard.swift; sourceTree = "<group>"; };
-		416442F32B1E8D5C007F98E4 /* backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = backup.swift; sourceTree = "<group>"; };
 		416442F52B1EBB00007F98E4 /* FlyingNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyingNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,7 +118,6 @@
 				3F3207412B039A2000143375 /* CardView.swift */,
 				3FF9CE172B16093C00921A7E /* CirclePart.swift */,
 				416442EF2B1E44EC007F98E4 /* TransformIntoCard.swift */,
-				416442F32B1E8D5C007F98E4 /* backup.swift */,
 				416442F52B1EBB00007F98E4 /* FlyingNumber.swift */,
 			);
 			path = laborat5;
@@ -282,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F3207142B038F9E00143375 /* ContentView.swift in Sources */,
-				416442F42B1E8D5C007F98E4 /* backup.swift in Sources */,
 				3F32073C2B03901F00143375 /* MemoGameModel.swift in Sources */,
 				416442F02B1E44EC007F98E4 /* TransformIntoCard.swift in Sources */,
 				3FF9CE182B16093C00921A7E /* CirclePart.swift in Sources */,
