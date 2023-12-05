@@ -10,7 +10,6 @@ import Foundation
 struct MemoGameModel<CardContent> where CardContent : Equatable {
     private (set) var cards : Array<Card>
     private (set) var score = 0
-    private (set) var lastScore = 0
     
     init(numberPairsOfCard: Int, cardContentFactory: (Int)->CardContent){
         cards =  []
@@ -36,15 +35,6 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
             }
         }
     
-    private mutating func executeDelayedAction() {
-        self.cards.indices.forEach { index in
-            if !self.cards[index].isMatched {
-                self.cards[index].isFaceUp = false
-            }
-        }
-    }
-    
-    
     func index(of card: Card) -> Int {
         return cards.firstIndex(where: {$0.id == card.id})!
     }
@@ -64,30 +54,24 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
 
         if let potentialMatchIndex = indexOfOneAndOnlyFaceUpCard {
      
-            if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+            if cards[chosenIndex].content == cards[potentialMatchIndex].content 
+            {
                 cards[chosenIndex].isMatched = true
                 cards[potentialMatchIndex].isMatched = true
                 score += 4
-                lastScore = 4
-                print("Matched")
-            }else{
+            }
+            else
+            {
                 if cards[chosenIndex].hasBeenSeen {
                     score -= 1
-                    lastScore = -1
                 }
                 if cards[potentialMatchIndex].hasBeenSeen {
                     score -= 1
-                    lastScore = -1
                 }
             }
 
-            print("Still face up")
             cards[chosenIndex].isFaceUp = true
-    
-            
-            
         } else {
-            print("We else")
             indexOfOneAndOnlyFaceUpCard = chosenIndex
         }
     }

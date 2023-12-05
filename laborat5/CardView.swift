@@ -27,15 +27,12 @@ struct CardView : View {
                    .aspectRatio(1, contentMode: .fit)
                    .opacity(card.isFaceUp ? 1 : 0)
                    .rotationEffect(.degrees(card.isMatched ? 360 : 0))
-                   .animation(.linear(duration: 2), value: card.isMatched)
+                   .animation(.spin(duration: 2), value: card.isMatched)
             )
             .padding(5)
             .transformIntoCard(isFaceUp: card.isFaceUp, color: viewModel.color)
         .onTapGesture {
-            withAnimation{
                 viewModel.chooseWithAnimation(card: card)
-            }
-            
         }
         
     }

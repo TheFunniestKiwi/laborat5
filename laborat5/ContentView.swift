@@ -58,11 +58,6 @@ struct ContentView: View {
                     .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
-                    .onTapGesture {
-                        viewModel.chooseWithAnimation(card: card)
-                        lastScoreChange = (amount: viewModel.lastScore, cardId: card.id)
-                    }
-                    .onChange(of: viewModel.lastScore, {lastScoreChange = (amount: viewModel.lastScore, cardId: card.id)})
             }.foregroundColor(viewModel.color)
         }
     }
