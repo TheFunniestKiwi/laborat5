@@ -1,10 +1,3 @@
-//
-//  FlyingNumber.swift
-//  laborat5
-//
-//  Created by Bartłomiej Lachowski on 05/12/2023.
-//
-
 import SwiftUI
 
 struct FlyingNumber: View {
@@ -31,5 +24,5 @@ struct FlyingNumber: View {
 }
 
 #Preview {
-    FlyingNumber(number: 1)
+    FlyingNumber(number: 4)
 }

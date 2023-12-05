@@ -1,10 +1,3 @@
-//
-//  TransformIntoCard.swift
-//  laborat5
-//
-//  Created by Bartłomiej Lachowski on 04/12/2023.
-//
-
 import SwiftUI
 
 struct TransformIntoCard: ViewModifier {

@@ -1,10 +1,3 @@
-//
-//  laborat5UITestsLaunchTests.swift
-//  laborat5UITests
-//
-//  Created by student on 14/11/2023.
-//
-
 import XCTest
 
 final class laborat5UITestsLaunchTests: XCTestCase {

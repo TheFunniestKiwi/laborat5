@@ -1,10 +1,3 @@
-//
-//  laborat5Tests.swift
-//  laborat5Tests
-//
-//  Created by student on 14/11/2023.
-//
-
 import XCTest
 @testable import laborat5
 

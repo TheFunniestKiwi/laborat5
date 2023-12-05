@@ -1,39 +1,5 @@
-//
-//  CirclePart.swift
-//  laborat5
-//
-//  Created by student on 28/11/2023.
-//
-
 import SwiftUI
 import CoreGraphics
-
-//struct CirclePart: Shape {
-//    let startAngle : Angle = .degrees(-90)
-//    var endAngle : Angle
-//    
-//    init(_ endAngle: Angle){
-//        self.endAngle = endAngle - .degrees(90)
-//    }
-//    func path(in rect: CGRect) -> Path {
-//        var path = Path()
-//        
-//        let width  = rect.midX
-//        let height = rect.midY
-//
-//        path.move(to: CGPoint(x: width, y: height))
-//        path.addArc(center: CGPoint(x: width, y: height), radius: 150, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-//
-//        return path
-//    }
-//}
-//    
-//
-//
-//#Preview {
-//    CirclePart(.degrees(240))
-//        .fill(.cyan)
-//}
 
 struct CirclePart: Shape {
     var startAngle: Angle = .zero
