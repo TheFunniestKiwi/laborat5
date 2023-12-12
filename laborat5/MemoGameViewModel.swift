@@ -2,9 +2,9 @@ import SwiftUI
 
 
 class MemoGameViewModel: ObservableObject {
-    private static let emojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻"]
-    private static let emojis2 = ["🕷️","💣","🦂","💣","🦎","💣","🐜"]
-    private static let emojis3 = ["😂","🤣","🥲","😍","😭","😡","🥺"]
+    private static let emojis = ["🐻"]
+    private static let emojis2 = ["💣"]
+    private static let emojis3 = ["😂"]
     public static var theme: Int = 1
     var color: Color {
            switch MemoGameViewModel.theme {
@@ -31,10 +31,10 @@ class MemoGameViewModel: ObservableObject {
             pairsByTheme = 50
         case 3:
             arrayByTheme = emojis3
-            pairsByTheme = 6
+            pairsByTheme = 100
         default:
             arrayByTheme = emojis
-            pairsByTheme = 8
+            pairsByTheme = 200
         }
         
         return MemoGameModel<String>(

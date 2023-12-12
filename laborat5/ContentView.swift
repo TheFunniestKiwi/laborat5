@@ -45,12 +45,12 @@ struct ContentView: View {
         }
     }
     var cards : some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0){
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 25), spacing: 0)], spacing: 0){
             ForEach(viewModel.cards){card in
                 CardView(card, viewModel)
                     .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                     .aspectRatio(2/3, contentMode: .fit)
-                    .padding(4)
+                    .padding(1)
                     .onChange(of: card.isFaceUp,
                         {
                             lastScoreChange = (amount: viewModel.lastScoreChange, cardId: card.id)

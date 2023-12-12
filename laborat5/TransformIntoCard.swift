@@ -5,11 +5,11 @@ struct TransformIntoCard: ViewModifier {
     let color: Color
 
        func body(content: Content) -> some View {
-           RoundedRectangle(cornerRadius: 12)
+           RoundedRectangle(cornerRadius: 3)
               .fill(isFaceUp ? Color.white : Color(color))
               .overlay(
-                  RoundedRectangle(cornerRadius: 12)
-                      .strokeBorder(lineWidth: 3)
+                  RoundedRectangle(cornerRadius: 3)
+                      .strokeBorder(lineWidth: 1)
                       .opacity(isFaceUp ? 1 : 0)
               )
               .overlay(content)

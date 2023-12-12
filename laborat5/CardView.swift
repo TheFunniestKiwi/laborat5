@@ -15,14 +15,14 @@ struct CardView : View {
             .opacity(0.4)
             .overlay(
                Text(card.content)
-                   .font(.system(size: 200))
+                   .font(.system(size: 1000))
                    .minimumScaleFactor(0.01)
-                   .aspectRatio(1, contentMode: .fit)
+                   .aspectRatio(1, contentMode: .fill)
                    .rotationEffect(.degrees(card.isMatched ? 360 : 0))
                    .animation(.spin(duration: 2), value: card.isMatched)
             )
             .opacity(card.isFaceUp ? 1 : 0)
-            .padding(5)
+            .padding(1)
             .transformIntoCard(isFaceUp: card.isFaceUp, color: viewModel.color)
         .onTapGesture {
                 viewModel.chooseWithAnimation(card: card)
