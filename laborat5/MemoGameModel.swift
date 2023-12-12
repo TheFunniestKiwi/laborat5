@@ -1,99 +1,90 @@
 import Foundation
 
 struct MemoGameModel<CardContent> where CardContent : Equatable {
-    private (set) var cards : Array<Card>
+    private (set) var cards : Array<Array<Card>>
     private (set) var score = 0
     private (set) var lastScoreChange = 0
     
-    init(numberPairsOfCard: Int, cardContentFactory: (Int)->CardContent){
+    init(boardSize: Int, cardContentFactory: (Int)->CardContent){
         cards =  []
         
-        for pairIndex in 0..<max(2,numberPairsOfCard) {
-            let content = cardContentFactory(pairIndex)
-            cards.append(Card(content: content, id: "\(UUID())a"))
-            cards.append(Card(content: content, id: "\(UUID())b"))
+        for row in 0...boardSize {
+            cards.append(Array<Card>())
+            for colIdx in 0...boardSize
+            {
+                let content = cardContentFactory(colIdx)
+                cards[row].append(Card(content: content, id: "\(UUID())"))
+            }
         }
     }
     
-    private var indexOfSingleRevealedAndUnmatchedCard: Int? {
-            get {
-                let faceUpCardIndices = cards.indices.filter { cards[$0].isFaceUp && !cards[$0].isMatched}
-                return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
-            }
-            set {
-                for index in cards.indices {
-                    if(!cards[index].isMatched){
-                        cards[index].isFaceUp = (index == newValue)
-                    }
-                }
+    func index(of card: Card) -> (Int, Int) {
+        var cardRowIdx = 0
+        var cardColIdx = 0
+        for rowIdx in 0..<cards.count {
+            print(rowIdx)
+            if (cards[rowIdx].contains(where: {$0.id == card.id}))
+            {
+                print(String(rowIdx) + "Inside")
+                cardRowIdx = rowIdx
+                cardColIdx = cards[cardRowIdx].firstIndex(where: {$0.id == card.id})!
+                return (cardRowIdx, cardColIdx)
             }
         }
-
-    
-    func index(of card: Card) -> Int {
-        return cards.firstIndex(where: {$0.id == card.id})!
+        return (0, 0)
     }
     
     mutating func shuffle() {
         cards.shuffle()
     }
     
-    mutating func choose(_ card: Card) {
-        let chosenIndex = index(of: card)
-        
-
-        guard !cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched else {
-            return
-        }
-        
-
-        if let otherRevealedCardIndex = indexOfSingleRevealedAndUnmatchedCard 
+    mutating func reveal(row: Int, col: Int)
+    {
+        //print("Row: " + String(row) + " Col: " + String(col))
+        cards[row][col].isFaceUp = true
+        if (row-1 >= 0 && cards[row-1][col].isFaceUp == false)
         {
-            if cards[chosenIndex].content == cards[otherRevealedCardIndex].content 
-            {
-                cards[chosenIndex].isMatched = true
-                cards[otherRevealedCardIndex].isMatched = true
-                lastScoreChange = 4
-            }
-            else
-            {
-                if cards[chosenIndex].hasBeenSeen {
-                    lastScoreChange = -1
-                }
-                if cards[otherRevealedCardIndex].hasBeenSeen {
-                    lastScoreChange += -1
-                }
-            }
-            
-            cards[chosenIndex].isFaceUp = true
-        } else {
-            indexOfSingleRevealedAndUnmatchedCard = chosenIndex
-            lastScoreChange = 0
+            reveal(row: row-1, col: col)
         }
-        
+        if (row+1 < cards.count && cards[row+1][col].isFaceUp == false)
+        {
+            reveal(row: row+1, col: col)
+        }
+        if (col-1 >= 0 && cards[row][col-1].isFaceUp == false)
+        {
+            reveal(row: row, col: col-1)
+        }
+        if (col+1 < cards.count && cards[row][col+1].isFaceUp == false)
+        {
+            reveal(row: row, col: col+1)
+        }
+    }
+    
+    mutating func choose(_ card: Card) {
+
+        let chosenIndex = index(of: card)
+
+        reveal(row: chosenIndex.0, col: chosenIndex.1)
+
         score += lastScoreChange
     }
 
-    
-    
-    
-    struct Card: Equatable, Identifiable{
+    struct Card: Equatable, Identifiable, Hashable{
        
-        
-        var isFaceUp = false
+        func hash(into myhasher: inout Hasher)
         {
-            didSet 
-            {
-                if oldValue && !isFaceUp 
-                {
-                    hasBeenSeen = true
-                }
-            }
+            myhasher.combine(id)
         }
-        var isMatched = false
-        var hasBeenSeen = false
-        var content: CardContent
         
+        var isFlagged = false
+        var isBomb = false
+        var isFaceUp = false
+        var content: CardContent
         var id: String
     }
+}
+
+
+enum NotFoundCardError : Error{
+    case NotFound
 }

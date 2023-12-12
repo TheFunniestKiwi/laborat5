@@ -23,22 +23,22 @@ class MemoGameViewModel: ObservableObject {
     static func createMemoGame(theme: Int)  -> MemoGameModel<String> {
         
         var arrayByTheme: [String]
-        var pairsByTheme: Int
+        var boardSizeByTheme: Int
         
         switch theme {
         case 2:
             arrayByTheme = emojis2
-            pairsByTheme = 50
+            boardSizeByTheme = 6
         case 3:
             arrayByTheme = emojis3
-            pairsByTheme = 100
+            boardSizeByTheme = 8
         default:
             arrayByTheme = emojis
-            pairsByTheme = 200
+            boardSizeByTheme = 12
         }
         
         return MemoGameModel<String>(
-            numberPairsOfCard: pairsByTheme){index in
+            boardSize: boardSizeByTheme){index in
                     if arrayByTheme.indices.contains(index){
                         return arrayByTheme[index]
                     }else{
@@ -52,7 +52,7 @@ class MemoGameViewModel: ObservableObject {
     
     
     
-    var cards: Array<MemoGameModel<String>.Card>{
+    var cards: Array<Array<MemoGameModel<String>.Card>>{
         return model.cards
     }
     

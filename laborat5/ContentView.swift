@@ -4,7 +4,7 @@ struct ContentView: View {
     @ObservedObject var viewModel: MemoGameViewModel
     var body: some View {
         VStack {
-            Text("Memo").font(.largeTitle)
+            Text("Minesweeper").font(.largeTitle)
             ScrollView{
                 cards
             }
@@ -45,18 +45,22 @@ struct ContentView: View {
         }
     }
     var cards : some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 25), spacing: 0)], spacing: 0){
-            ForEach(viewModel.cards){card in
-                CardView(card, viewModel)
-                    .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
-                    .aspectRatio(2/3, contentMode: .fit)
-                    .padding(1)
-                    .onChange(of: card.isFaceUp,
-                        {
-                            lastScoreChange = (amount: viewModel.lastScoreChange, cardId: card.id)
-                        } 
-                    )
-            }.foregroundColor(viewModel.color)
+        Grid{
+            ForEach(viewModel.cards, id:\.self){cardRow in
+                GridRow {
+                    ForEach(cardRow) {card in
+                        CardView(card, viewModel)
+                            .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
+                            .aspectRatio(2/3, contentMode: .fit)
+                            .padding(1)
+                            .onChange(of: card.isFaceUp,
+                                      {
+                                lastScoreChange = (amount: viewModel.lastScoreChange, cardId: card.id)
+                            }
+                            )
+                    }.foregroundColor(viewModel.color)
+                }
+            }
         }
     }
     
