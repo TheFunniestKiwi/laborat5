@@ -2,9 +2,9 @@ import SwiftUI
 
 
 class MemoGameViewModel: ObservableObject {
-    private static let emojis = ["🐻"]
-    private static let emojis2 = ["💣"]
-    private static let emojis3 = ["😂"]
+    private static let bombSymbol_1 = "🐻"
+    private static let bombSymbol_2 = "💣"
+    private static let bombSymbol_3 = "😂"
     public static var theme: Int = 1
     var color: Color {
            switch MemoGameViewModel.theme {
@@ -22,29 +22,22 @@ class MemoGameViewModel: ObservableObject {
     
     static func createMemoGame(theme: Int)  -> MemoGameModel<String> {
         
-        var arrayByTheme: [String]
+        var bombSymbol: String
         var boardSizeByTheme: Int
         
         switch theme {
         case 2:
-            arrayByTheme = emojis2
+            bombSymbol = bombSymbol_2
             boardSizeByTheme = 6
         case 3:
-            arrayByTheme = emojis3
+            bombSymbol = bombSymbol_3
             boardSizeByTheme = 8
         default:
-            arrayByTheme = emojis
+            bombSymbol = bombSymbol_1
             boardSizeByTheme = 12
         }
         
-        return MemoGameModel<String>(
-            boardSize: boardSizeByTheme){index in
-                    if arrayByTheme.indices.contains(index){
-                        return arrayByTheme[index]
-                    }else{
-                        return "❓"
-                    }
-            }
+        return MemoGameModel<String>(boardSize: boardSizeByTheme, bombChance: Double(boardSizeByTheme) * 0.04, bombSymbol: bombSymbol)
     }
     
     @Published private var  model = MemoGameViewModel.createMemoGame(theme: MemoGameViewModel.theme)

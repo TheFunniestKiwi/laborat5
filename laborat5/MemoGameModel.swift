@@ -1,19 +1,26 @@
 import Foundation
 
-struct MemoGameModel<CardContent> where CardContent : Equatable {
+struct MemoGameModel<TCardContent> where TCardContent : Equatable {
     private (set) var cards : Array<Array<Card>>
     private (set) var score = 0
     private (set) var lastScoreChange = 0
     
-    init(boardSize: Int, cardContentFactory: (Int)->CardContent){
+    init(boardSize: Int, bombChance: Double, bombSymbol: String){
         cards =  []
         
         for row in 0...boardSize {
             cards.append(Array<Card>())
-            for colIdx in 0...boardSize
+            for _ in 0...boardSize
             {
-                let content = cardContentFactory(colIdx)
-                cards[row].append(Card(content: content, id: "\(UUID())"))
+                let roll = Double.random(in: 0...1)
+                var content = ""
+                var isBomb = false
+                if roll < bombChance
+                {
+                    content = bombSymbol
+                    isBomb = true
+                }
+                cards[row].append(Card(isBomb: isBomb, content: content as! TCardContent, id: "\(UUID())"))
             }
         }
     }
@@ -35,6 +42,10 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
     }
     
     mutating func shuffle() {
+        for cardRowIdx in 0..<cards.count
+        {
+            cards[cardRowIdx].shuffle()
+        }
         cards.shuffle()
     }
     
@@ -42,19 +53,19 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
     {
         //print("Row: " + String(row) + " Col: " + String(col))
         cards[row][col].isFaceUp = true
-        if (row-1 >= 0 && cards[row-1][col].isFaceUp == false)
+        if (row-1 >= 0 && cards[row-1][col].isFaceUp == false && cards[row-1][col].isBomb == false)
         {
             reveal(row: row-1, col: col)
         }
-        if (row+1 < cards.count && cards[row+1][col].isFaceUp == false)
+        if (row+1 < cards.count && cards[row+1][col].isFaceUp == false && cards[row+1][col].isBomb == false)
         {
             reveal(row: row+1, col: col)
         }
-        if (col-1 >= 0 && cards[row][col-1].isFaceUp == false)
+        if (col-1 >= 0 && cards[row][col-1].isFaceUp == false && cards[row][col-1].isBomb == false)
         {
             reveal(row: row, col: col-1)
         }
-        if (col+1 < cards.count && cards[row][col+1].isFaceUp == false)
+        if (col+1 < cards.count && cards[row][col+1].isFaceUp == false && cards[row][col+1].isBomb == false)
         {
             reveal(row: row, col: col+1)
         }
@@ -79,7 +90,7 @@ struct MemoGameModel<CardContent> where CardContent : Equatable {
         var isFlagged = false
         var isBomb = false
         var isFaceUp = false
-        var content: CardContent
+        var content: TCardContent
         var id: String
     }
 }
